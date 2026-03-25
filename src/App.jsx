@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLastFm } from './hooks/useLastFm';
 import VinylItem from './components/VinylItem';
 import VinylSkeleton from './components/VinylSkeleton';
 import { RefreshCcw, AlertCircle } from 'lucide-react';
 
 function App() {
-  const { albums, isLoading, error, refetch } = useLastFm();
+  const [viewType, setViewType] = useState('albums');
+  const { data, isLoading, error, refetch } = useLastFm(viewType);
   
   // Check if we are in widget mode
   const searchParams = new URLSearchParams(window.location.search);
@@ -24,7 +25,24 @@ function App() {
         </header>
       )}
 
-      <main className={`${isWidget ? 'min-h-min' : 'min-h-150'} flex flex-col items-center justify-center`}>
+      <main className={`${isWidget ? 'min-h-min' : 'min-h-150'} flex flex-col items-center justify-center w-full pb-8`}>
+        {/* View Toggle */}
+        <div className="flex bg-white/5 p-1 mb-12 mt-4 rounded-full border border-white/10 backdrop-blur-xl shadow-inner mx-auto w-max">
+          {['albums', 'artists', 'tracks'].map(type => (
+            <button
+              key={type}
+              onClick={() => setViewType(type)}
+              className={`px-6 py-2 rounded-full text-sm outline-none font-semibold capitalize transition-all duration-300 ${
+                viewType === type 
+                  ? 'bg-white/20 text-white shadow-md border border-white/20 scale-105' 
+                  : 'text-white/50 hover:text-white hover:bg-white/10 border border-transparent'
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+
         {error ? (
           <div className="bg-white/10 border border-white/20 rounded-3xl max-w-md w-full p-8 text-center backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
             <AlertCircle size={48} className="text-red-400 mx-auto mb-4 drop-shadow-md" />
@@ -41,7 +59,7 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16 justify-items-center w-full">
             {isLoading 
               ? Array.from({ length: 8 }).map((_, i) => <VinylSkeleton key={`skel-${i}`} />)
-              : albums.map(album => <VinylItem key={album.id} album={album} />)
+              : data.map(item => <VinylItem key={item.id} album={item} />)
             }
           </div>
         )}
