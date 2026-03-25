@@ -17,7 +17,7 @@ function App() {
       {!isWidget && (
         <header className="mb-16 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-linear-to-b from-white to-white/60 drop-shadow-sm mb-3">
-            Heavy Rotation
+            IvnLinares Music Rotation
           </h1>
           <p className="text-white/60 text-lg md:text-xl font-medium tracking-wide">
             My Top Vinyl Shelf
