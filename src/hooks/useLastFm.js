@@ -61,13 +61,47 @@ export function useLastFm(type = 'albums') {
       }
 
       // Normalization
-      const normalizedData = items.map((item, index) => {
-        // Last.fm provides an array of images of different sizes. (Note: artists often don't have good images in recent API versions)
+      const normalizedDataPromises = items.map(async (item, index) => {
+        // Last.fm provides an array of images of different sizes.
         const imgObj = item.image && item.image.length > 0
           ? (item.image.find(img => img.size === 'extralarge') || 
              item.image.find(img => img.size === 'large') || 
              item.image[item.image.length - 1])
           : null;
+        
+        let finalImageUrl = imgObj && imgObj['#text'] ? imgObj['#text'] : '';
+        const isPlaceholder = !finalImageUrl || finalImageUrl.includes('2a96cbd8b46e442fc41c2b86b821562f');
+        
+        // Fetch fallback image from the artist's top album if missing or placeholder
+        if (isPlaceholder && (type === 'artists' || type === 'tracks')) {
+          const artistName = type === 'artists' ? item.name : (item.artist?.name || item.artist);
+          if (artistName) {
+            try {
+              const albumParams = new URLSearchParams({
+                method: 'artist.gettopalbums',
+                artist: artistName,
+                api_key: API_KEY,
+                limit: '1',
+                format: 'json',
+              });
+              const albumRes = await fetch(`${BASE_URL}?${albumParams.toString()}`);
+              if (albumRes.ok) {
+                const albumData = await albumRes.json();
+                const topAlbum = albumData.topalbums?.album?.[0];
+                if (topAlbum && topAlbum.image && topAlbum.image.length > 0) {
+                  const betterImgObj = topAlbum.image.find(img => img.size === 'extralarge') || 
+                                     topAlbum.image.find(img => img.size === 'large') || 
+                                     topAlbum.image[topAlbum.image.length - 1];
+                  if (betterImgObj && betterImgObj['#text']) {
+                    finalImageUrl = betterImgObj['#text'];
+                  }
+                }
+              }
+            } catch (e) {
+              console.error('Failed to fetch fallback image for', artistName);
+            }
+          }
+        }
         
         return {
           id: item.mbid || `${item.name}-${index}`,
@@ -75,11 +109,12 @@ export function useLastFm(type = 'albums') {
           artist: type === 'artists' ? 'Artist' : (item.artist?.name || item.artist || 'Unknown Artist'),
           playcount: item.playcount,
           url: item.url,
-          imageUrl: imgObj && imgObj['#text'] ? imgObj['#text'] : null,
+          imageUrl: finalImageUrl || null,
           rank: item['@attr']?.rank || index + 1
         };
       });
 
+      const normalizedData = await Promise.all(normalizedDataPromises);
       setData(normalizedData);
     } catch (err) {
       if (err.name === 'AbortError') {
