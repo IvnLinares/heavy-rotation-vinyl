@@ -30,7 +30,7 @@ export default function VinylItem({ album }) {
       <div 
         className={`absolute inset-0 z-0 flex items-center justify-center 
                     transition-all duration-500 ease-out origin-center
-                    group-hover:translate-x-16 group-hover:rotate-90
+                    [@media(hover:hover)]:group-hover:translate-x-16 [@media(hover:hover)]:group-hover:rotate-90
                     ${isExpanded ? 'translate-x-16 rotate-90' : 'translate-x-0 rotate-0'}`}
       >
         <img 
@@ -43,7 +43,7 @@ export default function VinylItem({ album }) {
 
       {/* Album Cover Layer */}
       <div 
-        className="absolute inset-0 z-10 rounded-2xl shadow-2xl overflow-hidden border border-white/20 transition-transform duration-500 ease-out transform group-hover:-translate-z-4 group-hover:-rotate-y-6 ring-1 ring-white/10"
+        className="absolute inset-0 z-10 rounded-2xl shadow-2xl overflow-hidden border border-white/20 transition-transform duration-500 ease-out transform [@media(hover:hover)]:group-hover:-translate-z-4 [@media(hover:hover)]:group-hover:-rotate-y-6 ring-1 ring-white/10"
       >
         <img 
           src={coverUrl} 
@@ -56,7 +56,7 @@ export default function VinylItem({ album }) {
         <div 
           className={`absolute inset-0 bg-white/10 backdrop-blur-xl p-5 flex flex-col justify-end 
                       transition-opacity duration-300 border-t border-white/20
-                      ${isExpanded ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
+                      ${isExpanded ? 'opacity-100' : 'opacity-0 [@media(hover:hover)]:group-hover:opacity-100'}`}
         >
           <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center shadow-lg border border-white/20">
             <Hash size={12} className="mr-0.5" /> {rank}

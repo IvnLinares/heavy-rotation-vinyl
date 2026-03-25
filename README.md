@@ -79,7 +79,7 @@ This project is configured out-of-the-box to be deployed to GitHub Pages.
 ## Technologies Used
 
 - **React 18** (Custom hooks, functional components)
-- **Vite** (Build tool)
+- **Vite** (Build tool) 
 - **Tailwind CSS v4** (Styling, layout, glassmorphism)
 - **Lucide React** (Icons)
 - **Last.fm API** (Real-time music data)
