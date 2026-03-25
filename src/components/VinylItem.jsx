@@ -43,7 +43,7 @@ export default function VinylItem({ album }) {
 
       {/* Album Cover Layer */}
       <div 
-        className="absolute inset-0 z-10 rounded-sm shadow-2xl overflow-hidden transition-transform duration-500 ease-out transform group-hover:-translate-z-4 group-hover:-rotate-y-6"
+        className="absolute inset-0 z-10 rounded-2xl shadow-2xl overflow-hidden border border-white/20 transition-transform duration-500 ease-out transform group-hover:-translate-z-4 group-hover:-rotate-y-6 ring-1 ring-white/10"
       >
         <img 
           src={coverUrl} 
@@ -52,32 +52,32 @@ export default function VinylItem({ album }) {
           loading="lazy"
         />
         
-        {/* Overlay Stats Panel - Revealed on hover/expand */}
+        {/* Overlay Stats Panel - Liquid Glass */}
         <div 
-          className={`absolute inset-0 bg-black/80 backdrop-blur-sm p-4 flex flex-col justify-end 
-                      transition-opacity duration-300
+          className={`absolute inset-0 bg-white/10 backdrop-blur-xl p-5 flex flex-col justify-end 
+                      transition-opacity duration-300 border-t border-white/20
                       ${isExpanded ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
         >
-          <div className="absolute top-2 right-2 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full flex items-center shadow-lg">
+          <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center shadow-lg border border-white/20">
             <Hash size={12} className="mr-0.5" /> {rank}
           </div>
           
-          <h3 className="text-white font-bold text-lg leading-tight line-clamp-2 drop-shadow-md">
+          <h3 className="text-white font-bold text-xl leading-tight line-clamp-2 drop-shadow-md">
             {name}
           </h3>
           <p className="text-white/80 text-sm mt-1 truncate drop-shadow-md">{artist}</p>
           
-          <div className="flex items-center justify-between mt-4">
-            <div className="flex items-center text-white/90 text-xs bg-white/10 px-2 py-1 rounded">
-              <Disc3 size={14} className="mr-1.5 opacity-70" />
-              <span>{playcount} plays</span>
+          <div className="flex items-center justify-between mt-5">
+            <div className="flex items-center text-white/90 text-xs bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-inner">
+              <Disc3 size={14} className="mr-1.5 opacity-80" />
+              <span className="font-medium">{playcount} plays</span>
             </div>
             
             <a 
               href={url} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-white hover:text-pink-400 transition-colors bg-white/10 hover:bg-white/20 p-1.5 rounded-full"
+              className="text-white hover:text-white/80 transition-all bg-white/20 hover:bg-white/30 backdrop-blur-md p-2 rounded-full border border-white/20 shadow-lg hover:scale-105"
               onClick={(e) => e.stopPropagation()}
               aria-label={`View ${name} on Last.fm`}
             >

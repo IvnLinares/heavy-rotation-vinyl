@@ -10,23 +10,23 @@ function App() {
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
       <header className="mb-16 text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white drop-shadow-xl mb-4">
+        <h1 className="text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-linear-to-b from-white to-white/60 drop-shadow-sm mb-3">
           Heavy Rotation
         </h1>
-        <p className="text-white/80 text-lg md:text-xl font-medium tracking-wide">
+        <p className="text-white/60 text-lg md:text-xl font-medium tracking-wide">
           My Top Vinyl Shelf
         </p>
       </header>
 
       <main className="min-h-150 flex flex-col items-center justify-center">
         {error ? (
-          <div className="bg-red-950/40 border border-red-500/30 rounded-xl max-w-md w-full p-8 text-center backdrop-blur-md shadow-2xl">
-            <AlertCircle size={48} className="text-red-400 mx-auto mb-4" />
+          <div className="bg-white/10 border border-white/20 rounded-3xl max-w-md w-full p-8 text-center backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
+            <AlertCircle size={48} className="text-red-400 mx-auto mb-4 drop-shadow-md" />
             <h2 className="text-xl font-bold text-white mb-2">Failed to load shelf</h2>
-            <p className="text-red-200/80 mb-6">{error}</p>
+            <p className="text-white/70 mb-6">{error}</p>
             <button 
               onClick={refetch}
-              className="inline-flex items-center gap-2 bg-red-500 hover:bg-red-400 text-white font-medium py-2.5 px-6 rounded-full transition-colors active:scale-95"
+              className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-white/10 text-white font-medium py-2.5 px-6 rounded-full transition-all active:scale-95 shadow-lg backdrop-blur-md"
             >
               <RefreshCcw size={18} /> Try Again
             </button>

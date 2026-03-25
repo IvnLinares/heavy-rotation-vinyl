@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function VinylSkeleton() {
   return (
-    <div className="w-64 h-64 relative rounded-sm shadow-xl bg-white/5 border border-white/10 overflow-hidden flex flex-col justify-end p-4">
+    <div className="w-64 h-64 relative rounded-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-white/5 border border-white/20 ring-1 ring-white/10 overflow-hidden flex flex-col justify-end p-5">
       {/* Shimmer effect base */}
       <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/5 to-transparent animate-shimmer -translate-x-full"></div>
       
