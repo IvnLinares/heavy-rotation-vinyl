@@ -14,16 +14,16 @@ function App() {
 
   return (
     <div className={`container mx-auto max-w-6xl ${isWidget ? 'p-0 sm:p-4' : 'px-4 py-16'}`}>
-      {!isWidget && (
-        <header className="mb-16 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-linear-to-b from-white to-white/60 drop-shadow-sm mb-3">
-            IvnLinares Music Rotation
-          </h1>
+      <header className={`${isWidget ? 'mb-8 mt-4' : 'mb-16'} text-center`}>
+        <h1 className="text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-linear-to-b from-white to-white/60 drop-shadow-sm mb-3">
+          IvnLinares Music Rotation
+        </h1>
+        {!isWidget && (
           <p className="text-white/60 text-lg md:text-xl font-medium tracking-wide">
             My Top Vinyl Shelf
           </p>
-        </header>
-      )}
+        )}
+      </header>
 
       <main className={`${isWidget ? 'min-h-min' : 'min-h-150'} flex flex-col items-center justify-center w-full pb-8`}>
         {/* View Toggle */}
