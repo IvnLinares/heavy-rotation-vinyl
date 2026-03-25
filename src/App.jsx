@@ -6,19 +6,25 @@ import { RefreshCcw, AlertCircle } from 'lucide-react';
 
 function App() {
   const { albums, isLoading, error, refetch } = useLastFm();
+  
+  // Check if we are in widget mode
+  const searchParams = new URLSearchParams(window.location.search);
+  const isWidget = searchParams.get('widget') === 'true';
 
   return (
-    <div className="container mx-auto px-4 py-16 max-w-6xl">
-      <header className="mb-16 text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-linear-to-b from-white to-white/60 drop-shadow-sm mb-3">
-          Heavy Rotation
-        </h1>
-        <p className="text-white/60 text-lg md:text-xl font-medium tracking-wide">
-          My Top Vinyl Shelf
-        </p>
-      </header>
+    <div className={`container mx-auto max-w-6xl ${isWidget ? 'p-0 sm:p-4' : 'px-4 py-16'}`}>
+      {!isWidget && (
+        <header className="mb-16 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-linear-to-b from-white to-white/60 drop-shadow-sm mb-3">
+            Heavy Rotation
+          </h1>
+          <p className="text-white/60 text-lg md:text-xl font-medium tracking-wide">
+            My Top Vinyl Shelf
+          </p>
+        </header>
+      )}
 
-      <main className="min-h-150 flex flex-col items-center justify-center">
+      <main className={`${isWidget ? 'min-h-min' : 'min-h-150'} flex flex-col items-center justify-center`}>
         {error ? (
           <div className="bg-white/10 border border-white/20 rounded-3xl max-w-md w-full p-8 text-center backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
             <AlertCircle size={48} className="text-red-400 mx-auto mb-4 drop-shadow-md" />
@@ -41,9 +47,14 @@ function App() {
         )}
       </main>
 
-      <footer className="mt-24 text-center text-white/40 text-sm pb-8">
-        <p>Data provided by <a href="https://www.last.fm" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-white/20">Last.fm</a></p>
-      </footer>
+      {!isWidget && (
+        <footer className="mt-24 text-center text-white/40 text-sm pb-8 space-y-2">
+          <p>
+            Developed with ❤️ by <a href="https://ivnlinares.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-white/20">IvnLinares</a>
+          </p>
+          <p>Data provided by <a href="https://www.last.fm" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-white/20">Last.fm</a></p>
+        </footer>
+      )}
     </div>
   )
 }
